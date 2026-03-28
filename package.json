@@ -18,7 +18,8 @@
     "prisma:seed": "tsx prisma/seed.ts",
     "docker:up": "docker compose up -d",
     "docker:down": "docker compose down",
-    "setup": "npm install && cp -n .env.example .env || true && npm run docker:up && sleep 3 && npm run prisma:generate && npm run prisma:migrate"
+    "setup": "npm install && cp -n .env.example .env || true && npm run docker:up && sleep 3 && npm run prisma:generate && npm run prisma:migrate",
+    "postinstall": "prisma generate"
   },
   "keywords": [
     "nodejs",
@@ -54,6 +55,7 @@
     "zod": "^4.3.6"
   },
   "devDependencies": {
+    "@eslint/js": "^10.0.1",
     "@types/bcrypt": "^6.0.0",
     "@types/cors": "^2.8.19",
     "@types/express": "^5.0.6",
@@ -78,6 +80,7 @@
     "supertest": "^7.2.2",
     "tsx": "^4.21.0",
     "typescript": "^5.9.3",
+    "typescript-eslint": "^8.57.2",
     "vitest": "^4.1.2"
   }
 }

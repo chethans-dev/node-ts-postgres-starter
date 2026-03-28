@@ -3,7 +3,6 @@ import { AppError } from '../utils/AppError';
 import logger from '../config/logger';
 import { env } from '../config/env';
 import { ZodError } from 'zod';
-import { Prisma } from '@prisma/client';
 
 /**
  * Global error handling middleware.
@@ -17,7 +16,9 @@ export const errorHandler = (
 ): void => {
   // ─── Zod Validation Errors ────────────────────────────────
   if (err instanceof ZodError) {
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
     const zodErr = err as any;
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
     const errors = zodErr.issues.map((e: any) => ({
       field: e.path.join('.'),
       message: e.message,
@@ -33,7 +34,13 @@ export const errorHandler = (
   }
 
   // ─── Prisma Known Errors ──────────────────────────────────
-  if (err instanceof Error && 'code' in err && typeof err.code === 'string' && err.code.startsWith('P')) {
+  if (
+    err instanceof Error &&
+    'code' in err &&
+    typeof err.code === 'string' &&
+    err.code.startsWith('P')
+  ) {
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
     const prismaErr = err as any;
     let statusCode = 500;
     let message = 'Database error';

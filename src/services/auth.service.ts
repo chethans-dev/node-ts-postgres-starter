@@ -12,9 +12,7 @@ export class AuthService {
   /**
    * Register a new user.
    */
-  async register(
-    input: RegisterInput,
-  ): Promise<{ user: UserResponse; tokens: TokenPair }> {
+  async register(input: RegisterInput): Promise<{ user: UserResponse; tokens: TokenPair }> {
     const existingUser = await prisma.user.findUnique({
       where: { email: input.email },
     });
@@ -49,9 +47,7 @@ export class AuthService {
   /**
    * Login an existing user.
    */
-  async login(
-    input: LoginInput,
-  ): Promise<{ user: UserResponse; tokens: TokenPair }> {
+  async login(input: LoginInput): Promise<{ user: UserResponse; tokens: TokenPair }> {
     const user = await prisma.user.findUnique({
       where: { email: input.email },
     });

@@ -3,11 +3,7 @@ import { authController } from '../controllers/auth.controller';
 import { asyncHandler } from '../middlewares/asyncHandler';
 import { validate } from '../middlewares/validate';
 import { authenticate } from '../middlewares/auth';
-import {
-  registerSchema,
-  loginSchema,
-  refreshTokenSchema,
-} from '../validations/auth.validation';
+import { registerSchema, loginSchema, refreshTokenSchema } from '../validations/auth.validation';
 
 const router = Router();
 
@@ -82,11 +78,7 @@ router.post('/login', validate(loginSchema), asyncHandler(authController.login))
  *       200:
  *         description: Tokens refreshed
  */
-router.post(
-  '/refresh',
-  validate(refreshTokenSchema),
-  asyncHandler(authController.refreshToken),
-);
+router.post('/refresh', validate(refreshTokenSchema), asyncHandler(authController.refreshToken));
 
 /**
  * @openapi
